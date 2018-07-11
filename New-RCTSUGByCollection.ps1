@@ -3,11 +3,11 @@ param(
     [parameter(Mandatory = $true, HelpMessage = "Site server where the SMS Provider is installed.")]
     [ValidateNotNullOrEmpty()]
     [string] $SiteServer
-		
-    , [parameter(Mandatory = $true, HelpMessage = "Namespace: root\sms\site_M02 for examle")]		
+
+    , [parameter(Mandatory = $true, HelpMessage = "Namespace: root\sms\site_COD for examle")]
     [ValidateNotNullOrEmpty()]
     [string] $Namespace
-    
+
     , [parameter(Mandatory = $true, HelpMessage = "The unique ID of the device collection.")]
     [ValidateNotNullOrEmpty()]
     [string] $CollectionID
@@ -20,8 +20,10 @@ Begin {
     if ($Verbose) { $VerbosePreference = "Continue" }
     $ErrorActionPreference = "Stop"
 
-    Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1" -Cmdlet "New-CMSoftwareUpdateGroup" -Verbose:$false 
+    Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1" -Cmdlet "New-CMSoftwareUpdateGroup" -Verbose:$false
     $SiteCode = Get-PSDrive -PSProvider CMSITE
+
+    Add-Type -AssemblyName PresentationFramework
 
     if (!$SUGNameTemplate) {
         $SUGNameTemplate = "{0}-{1}-{2}-{3}-{4}-{5} - Updates For $($CollectionID)"
@@ -56,32 +58,29 @@ Process {
     WHERE
         SMS_FullCollectionMembership.CollectionID = '$CollectionID'
 "@
-
     ## UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5 - 'Upgrades'
-    ## AND (SMS_SoftwareUpdate.CIType_ID = 1 OR SMS_SoftwareUpdate.CIType_ID = 8) AND SMS_SoftwareUpdate.IsLatest = 1
-    ## AND SMS_CIAllCategories.CategoryInstance_UniqueID <> 'Product:30eb551c-6288-4716-9a78-f300ec36d72b'
-    ## Product:30eb551c-6288-4716-9a78-f300ec36d72b - "Office 365 Client"
- 
+
     $Updates = Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace
     Write-Verbose "Updates count: $($Updates.Count)"
 
-    Set-Location "$($SiteCode.Name):\"
-    if ($Updates.Count) {
-        $SUG = New-CMSoftwareUpdateGroup -Name $SUGName -SoftwareUpdateId $Updates.CI_ID -Description "Updates required for the device CollectionID: $($CollectionID)"
-        $SUG | Out-String | Write-Verbose 
-    }
-    else {
-        Write-Verbose "No Updates for collection members"
-        [System.Windows.MessageBox]::Show("No updates for collection members", 'No updates', 'OK', 'Asterisk')
-    }
+        if ($Updates.Count) {
+            Set-Location "$($SiteCode.Name):\"
+            $SUG = New-CMSoftwareUpdateGroup -Name $SUGName -SoftwareUpdateId $Updates.CI_ID -Description "Updates required for the device CollectionID: $($CollectionID)"
+            $SUG | Out-String | Write-Verbose
+            if ($SUG) {
+                Write-Verbose "Complete."
+                [System.Windows.MessageBox]::Show("The SUG was created successfully`n""$($SUGName)""", 'Complete', 'OK', 'Asterisk') | Out-Null
+            }
+            else {
+                Write-Verbose "Failed to create SUG: ""$($SUGName)"""
+                [System.Windows.MessageBox]::Show("Failed to create SUG:`n""$($SUGName)""", 'Error', 'OK', 'Error') | Out-Null
+            }
+        }
+        else {
+            Write-Verbose "No Updates for collection members"
+            [System.Windows.MessageBox]::Show("No updates for collection members", 'No updates', 'OK', 'Asterisk') | Out-Null
+        }
 }
 End {
-    if ($SUG) {
-        Write-Verbose "Complete."
-        [System.Windows.MessageBox]::Show("The SUG was created successfully`n""$($SUGName)""", 'Complete', 'OK', 'Asterisk')
-    }
-    else {
-        Write-Error "Failed to create SUG: ""$($SUGName)""" -
-        [System.Windows.MessageBox]::Show("Failed to create SUG:`n""$($SUGName)""", 'Error', 'OK', 'Error')
-    }
+    Write-Verbose "Complete."
 }
