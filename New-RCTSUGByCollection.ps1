@@ -71,9 +71,17 @@ Process {
         $SUG | Out-String | Write-Verbose 
     }
     else {
-        Write-Verbose "No Updates for SUG"
+        Write-Verbose "No Updates for collection members"
+        [System.Windows.MessageBox]::Show("No updates for collection members", 'No updates', 'OK', 'Asterisk')
     }
 }
 End {
-    Write-Verbose "Complete."
+    if ($SUG) {
+        Write-Verbose "Complete."
+        [System.Windows.MessageBox]::Show("The SUG was created successfully`n""$($SUGName)""", 'Complete', 'OK', 'Asterisk')
+    }
+    else {
+        Write-Error "Failed to create SUG: ""$($SUGName)""" -
+        [System.Windows.MessageBox]::Show("Failed to create SUG:`n""$($SUGName)""", 'Error', 'OK', 'Error')
+    }
 }
