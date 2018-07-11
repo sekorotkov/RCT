@@ -1,0 +1,16 @@
+<ActionDescription Class="Executable" DisplayName="System Compliance" MnemonicDisplayName="System Compliance" Description="Shows the System Compliance for the selected update">
+	<ImagesDescription>
+		<ResourceAssembly>
+			<Assembly>AdminUI.UIResources.dll</Assembly>
+			<Type>Microsoft.ConfigurationManagement.AdminConsole.UIResources.Properties.Resources.resources</Type>
+		</ResourceAssembly>
+		<ImageResourceName>Information</ImageResourceName>
+	</ImagesDescription>
+	<ShowOn>
+		<string>ContextMenu</string>
+	</ShowOn>
+	<Executable>
+		<FilePath>PowerShell.exe</FilePath>
+		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\Get-RCTUpdateSystemCompliance.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -CI_ID ##SUB:CI_ID##</Parameters>
+	</Executable>
+</ActionDescription>
