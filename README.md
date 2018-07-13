@@ -33,4 +33,3 @@ Get-RCTUpdateSystemCompliance
 Happy updates!
 
 Test.
-Test2.
