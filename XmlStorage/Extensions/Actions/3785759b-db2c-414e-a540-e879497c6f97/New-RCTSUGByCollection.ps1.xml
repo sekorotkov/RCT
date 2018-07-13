@@ -11,6 +11,6 @@
 	</ShowOn>
 	<Executable>
 		<FilePath>PowerShell.exe</FilePath>
-		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\New-RCTSUGByCollection.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -CollectionID "##SUB:CollectionID##" -SUGNameTemplate '{0}-{1}-{2}-{3}-{4}-{5} - Updates For ##SUB:Name##'</Parameters>
+		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\New-RCTSUGByCollection.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -CollectionID "##SUB:CollectionID##" -SUGNameTemplate '{0}-{1}-{2} {3}-{4}-{5} - Updates For ##SUB:Name##'</Parameters>
 	</Executable>
 </ActionDescription>

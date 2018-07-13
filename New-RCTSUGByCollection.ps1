@@ -26,7 +26,7 @@ Begin {
     Add-Type -AssemblyName PresentationFramework
 
     if (!$SUGNameTemplate) {
-        $SUGNameTemplate = "{0}-{1}-{2}-{3}-{4}-{5} - Updates For $($CollectionID)"
+        $SUGNameTemplate = "{0}-{1}-{2} {3}-{4}-{5} - Updates for $($CollectionID)"
     }
     $Now = Get-Date
     $SUGName = $SUGNameTemplate  -f $Now.ToString("yyyy"), $Now.ToString("MM"), $Now.ToString("dd"), $Now.ToString("HH"), $Now.ToString("mm"), $Now.ToString("ss")
