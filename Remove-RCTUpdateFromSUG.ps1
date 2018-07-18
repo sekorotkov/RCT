@@ -1,4 +1,3 @@
-#function test-test {
 [CmdletBinding(SupportsShouldProcess)]
 param(
     [parameter( Mandatory = $true, HelpMessage = "Site server where the SMS Provider is installed.")]
