@@ -1,8 +1,10 @@
 RCT (Right Click Tools) для работы с обновлениями.
 
-New-RCTSUGByCollection и Get-RCTUpdateSystemCompliance.
+- New-RCTSUGByCollection
+- Get-RCTUpdateSystemCompliance
+- Remove-RCTUpdateFromSUG
 
-New-RCTSUGByCollection
+New-RCTSUGByCollection:
 
 Создаёт Группу обновлений (SUG), которые требуются на членах коллекции устройств. Выбираем группу, правой кнопкой / “Create SUG for Collection”
 
@@ -12,7 +14,7 @@ New-RCTSUGByCollection
 
 Note: Пока скрипт использует CM-командлет “New-CMSoftwareUpdateGroup”, позже, если потребуется, перепишу под работу через WMI. Подписывайтесь на github. Туда буду добавлять и другие RCT.
 
-Get-RCTUpdateSystemCompliance
+Get-RCTUpdateSystemCompliance:
 
 Показывает состояние “Required” / ”Installed” для конкретного обновления
 
@@ -23,6 +25,11 @@ Get-RCTUpdateSystemCompliance
 - Один столбец с текстом Required / Installed.
 
 Для включения второго режима добавьте параметр “-StatusInOneColumn” в вызов скрипта в xml файлах.
+
+Remove-RCTUpdateFromSUG:
+
+Удаляет выбранное обновление из всех SUG (Software Update Group)
+
 
 Как установить
 
