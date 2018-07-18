@@ -16,7 +16,7 @@ param(
     , [parameter(Mandatory = $false, HelpMessage = "The SUG ID (Software Update Group ID).")]
     [UInt32[]] $SUG_CI_ID
 
-    , [parameter(Mandatory = $false, HelpMessage = "Do not start-confirm deletion from SUG.")]
+    , [parameter(Mandatory = $false, HelpMessage = "Do not prompts you for confirmation before running the cmdlet.")]
     [switch] $force
 )
 Begin {
@@ -92,7 +92,7 @@ Process {
     }
 }
 End {
-    Write-Verbose "Complete."
     $Text = if ($SUGChanged.Count) {"Number of modified SUG: $($SUGChanged.Count).`nPlease refresh the console."} else {"No changes made."}
+    Write-Verbose $Text
     [Microsoft.VisualBasic.Interaction]::MsgBox($Text, "OkOnly,SystemModal,Information,DefaultButton1", "Complete") | Out-Null
 }
