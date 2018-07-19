@@ -31,7 +31,7 @@ Begin {
     Write-Verbose "CI_ID         = $CI_ID"
     Write-Verbose "SUG_CI_ID     = $SUG_CI_ID"
 
-    if (!$force -and [Microsoft.VisualBasic.Interaction]::MsgBox("Remove selected updates from $(if ($SUG_CI_ID.Count) {$SUG_CI_ID.Count} else {"all"}) SUG?", "YesNo,SystemModal,Question,DefaultButton1", "SEDO locked") -ne 'Yes') {
+    if (!$force -and [Microsoft.VisualBasic.Interaction]::MsgBox("Remove selected updates from $(if ($SUG_CI_ID.Count) {$SUG_CI_ID.Count} else {"all"}) SUG?", "YesNo,SystemModal,Question,DefaultButton1", "Start Confirm") -ne 'Yes') {
         return 0
     }
 
