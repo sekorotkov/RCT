@@ -31,7 +31,7 @@ Begin {
     Write-Verbose "CI_ID         = $CI_ID"
     Write-Verbose "SUG_CI_ID     = $SUG_CI_ID"
 
-    if (!$force -and [Microsoft.VisualBasic.Interaction]::MsgBox("Remove selected updates from $(if ($SUG_CI_ID.Count) {$SUG_CI_ID.Count} else {"all"}) SUG?", "YesNo,SystemModal,Question,DefaultButton1", "Start Confirm") -ne 'Yes') {
+    if (!$force -and [Microsoft.VisualBasic.Interaction]::MsgBox("Remove selected updates from $(if ($SUG_CI_ID.Count) {$SUG_CI_ID.Count} else {"all"}) SUG?", "YesNo,SystemModal,Question,DefaultButton1", "Start confirmation") -ne 'Yes') {
         return 0
     }
 
@@ -93,5 +93,5 @@ Process {
 End {
     $Text = if ($SUGChanged.Count) {"Number of modified SUG: $($SUGChanged.Count).`nPlease refresh the console."} else {"No changes made."}
     Write-Verbose $Text
-    [Microsoft.VisualBasic.Interaction]::MsgBox($Text, "OkOnly,SystemModal,Information,DefaultButton1", "Complete") | Out-Null
+    [Microsoft.VisualBasic.Interaction]::MsgBox($Text, "OkOnly,SystemModal,Information,DefaultButton1", "Completed") | Out-Null
 }
