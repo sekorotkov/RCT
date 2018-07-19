@@ -68,8 +68,8 @@ Process {
             $SUG = New-CMSoftwareUpdateGroup -Name $SUGName -SoftwareUpdateId $Updates.CI_ID -Description "Updates required for the device CollectionID: $($CollectionID)"
             $SUG | Out-String | Write-Verbose
             if ($SUG) {
-                Write-Verbose "Complete."
-                [System.Windows.MessageBox]::Show("The SUG was created successfully`n""$($SUGName)""", 'Complete', 'OK', 'Asterisk') | Out-Null
+                Write-Verbose "Completed."
+                [System.Windows.MessageBox]::Show("The SUG was created successfully`n""$($SUGName)""", 'Completed', 'OK', 'Asterisk') | Out-Null
             }
             else {
                 Write-Verbose "Failed to create SUG: ""$($SUGName)"""
@@ -82,5 +82,5 @@ Process {
         }
 }
 End {
-    Write-Verbose "Complete."
+    Write-Verbose "Completed."
 }
