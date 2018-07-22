@@ -20,8 +20,8 @@ Begin {
     if ($Verbose) { $VerbosePreference = "Continue" }
     $ErrorActionPreference = "Stop"
 
-    Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1" -Cmdlet "New-CMSoftwareUpdateGroup" -Verbose:$false
-    $SiteCode = Get-PSDrive -PSProvider CMSITE
+    # Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1" -Cmdlet "New-CMSoftwareUpdateGroup" -Verbose:$false
+    # $SiteCode = Get-PSDrive -PSProvider CMSITE
 
     Add-Type -AssemblyName PresentationFramework
 
@@ -64,16 +64,36 @@ Process {
     Write-Verbose "Updates count: $($Updates.Count)"
 
         if ($Updates.Count) {
-            Set-Location "$($SiteCode.Name):\"
-            $SUG = New-CMSoftwareUpdateGroup -Name $SUGName -SoftwareUpdateId $Updates.CI_ID -Description "Updates required for the device CollectionID: $($CollectionID)"
-            $SUG | Out-String | Write-Verbose
-            if ($SUG) {
-                Write-Verbose "Completed."
-                [System.Windows.MessageBox]::Show("The SUG was created successfully`n""$($SUGName)""", 'Completed', 'OK', 'Asterisk') | Out-Null
+            $LProp = ([WmiClass] "\\$($SiteServer)\$($Namespace):SMS_CI_LocalizedProperties").CreateInstance()
+            $LProp.DisplayName = $SUGName
+            $LProp.Description = "Updates required for the device CollectionID: $($CollectionID)"
+            $LProp.LocaleID = [System.Threading.Thread]::CurrentThread.CurrentUICulture.LCID
+
+            # Create a new SMS_AuthorizationList instance
+            $AuthArg = @{
+                LocalizedInformation = [array]$LProp
             }
-            else {
-                Write-Verbose "Failed to create SUG: ""$($SUGName)"""
+            try {
+                $SUG = Set-WmiInstance -ComputerName $SiteServer -Namespace $Namespace -Class SMS_AuthorizationList -Arguments $AuthArg -ErrorAction Stop
+                Write-Verbose -Message "Successfully created '$($SUGName)' software update group"
+            }
+            catch [System.Exception] {
+                Write-Verbose -Message "Failed to create SUG: ""$($SUGName)"""
                 [System.Windows.MessageBox]::Show("Failed to create SUG:`n""$($SUGName)""", 'Error', 'OK', 'Error') | Out-Null
+            }
+            # Add list of CI_ID's to SUG
+            if ($SUG) {
+                try {
+                    $SUG.Get()
+                    $SUG.Updates = $Updates.CI_ID
+                    $SUG.Put() | Out-String | Write-Verbose
+                    Write-Verbose -Message "Successfully added ""$($Updates.CI_ID.Count)"" software updates to ""$($SUGName)"" software update group"
+                    [System.Windows.MessageBox]::Show("The SUG was created successfully:`n""$($SUGName)""", 'Completed', 'OK', 'Asterisk') | Out-Null
+                }
+                catch [System.Exception] {
+                    Write-Verbose -Message "Unable to add ""$($Updates.CI_ID.Count)"" updates to ""$($SUGName)"" software update group"
+                    [System.Windows.MessageBox]::Show("Failed to create SUG:`n""$($SUGName)""", 'Error', 'OK', 'Error') | Out-Null
+                }
             }
         }
         else {
