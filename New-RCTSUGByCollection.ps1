@@ -20,9 +20,6 @@ Begin {
     if ($Verbose) { $VerbosePreference = "Continue" }
     $ErrorActionPreference = "Stop"
 
-    # Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1" -Cmdlet "New-CMSoftwareUpdateGroup" -Verbose:$false
-    # $SiteCode = Get-PSDrive -PSProvider CMSITE
-
     Add-Type -AssemblyName PresentationFramework
 
     if (!$SUGNameTemplate) {
