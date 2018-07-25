@@ -20,7 +20,7 @@ Begin {
     if ($Verbose) { $VerbosePreference = "Continue" }
     $ErrorActionPreference = "Stop"
 
-    Add-Type -AssemblyName PresentationFramework
+    [void] [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
     if (!$SUGNameTemplate) {
         $SUGNameTemplate = "{0}-{1}-{2} {3}-{4}-{5} - Updates for $($CollectionID)"
@@ -76,7 +76,7 @@ Process {
             }
             catch [System.Exception] {
                 Write-Verbose -Message "Failed to create SUG: ""$($SUGName)"""
-                [System.Windows.MessageBox]::Show("Failed to create SUG:`n""$($SUGName)""", 'Error', 'OK', 'Error') | Out-Null
+                [Microsoft.VisualBasic.Interaction]::MsgBox("Failed to create SUG:`n""$($SUGName)""", "OkOnly,SystemModal,Critical", "Error") | Out-Null
             }
             # Add list of CI_ID's to SUG
             if ($SUG) {
@@ -85,17 +85,16 @@ Process {
                     $SUG.Updates = $Updates.CI_ID
                     $SUG.Put() | Out-String | Write-Verbose
                     Write-Verbose -Message "Successfully added ""$($Updates.CI_ID.Count)"" software updates to ""$($SUGName)"" software update group"
-                    [System.Windows.MessageBox]::Show("The SUG was created successfully:`n""$($SUGName)""", 'Completed', 'OK', 'Asterisk') | Out-Null
+                    [Microsoft.VisualBasic.Interaction]::MsgBox("The SUG was created successfully:`n""$($SUGName)""", "OkOnly,SystemModal,Information", "Completed") | Out-Null
                 }
                 catch [System.Exception] {
-                    Write-Verbose -Message "Unable to add ""$($Updates.CI_ID.Count)"" updates to ""$($SUGName)"" software update group"
-                    [System.Windows.MessageBox]::Show("Failed to create SUG:`n""$($SUGName)""", 'Error', 'OK', 'Error') | Out-Null
+                    [Microsoft.VisualBasic.Interaction]::MsgBox("Failed to fill SUG with updates:`n""$($SUGName)""", "OkOnly,SystemModal,Critical", "Error") | Out-Null
                 }
             }
         }
         else {
             Write-Verbose "No Updates for collection members"
-            [System.Windows.MessageBox]::Show("No updates for collection members", 'No updates', 'OK', 'Asterisk') | Out-Null
+            [Microsoft.VisualBasic.Interaction]::MsgBox("No updates for collection members", "OkOnly,SystemModal,Information", "Completed") | Out-Null
         }
 }
 End {
