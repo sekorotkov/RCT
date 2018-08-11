@@ -26,10 +26,10 @@ Begin {
 
     [void] [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
-    Write-Verbose "SiteServer = $SiteServer"
-    Write-Verbose "Namespace  = $Namespace"
-    Write-Verbose "CollectionID  = $CollectionID"
-    Write-Verbose "SUGName  = $SUGName"
+    Write-Verbose "SiteServer       = $SiteServer"
+    Write-Verbose "Namespace        = $Namespace"
+    Write-Verbose "CollectionID     = $CollectionID"
+    Write-Verbose "ResourceID       = $ResourceID"
 }
 Process {
     $Query = @"

@@ -42,7 +42,7 @@ Begin {
         break 
     }
     
-    if ($psCmdlet.ParameterSetName -eq "RemoveByContainerNodeID") {
+    if ($psCmdlet.ParameterSetName -eq "ByContainerNodeID") {
         Write-Verbose "... running by ParameterSetName = ""RemoveByContainerNodeID"", get all CI_ID updates from ContainerNodeID = $ContainerNodeID"
         $Query = @"
         SELECT SMS_SoftwareUpdate.CI_ID
