@@ -1,16 +1,22 @@
-[CmdletBinding(SupportsShouldProcess)]
+[CmdletBinding(SupportsShouldProcess, DefaultParameterSetName="RemoveByCI_ID")]
 param(
-    [parameter( Mandatory = $true, HelpMessage = "Site server where the SMS Provider is installed.")]
+    [parameter( Mandatory = $true, ParameterSetName="RemoveByCI_ID", HelpMessage = "Site server where the SMS Provider is installed.")]
+    [parameter( Mandatory = $true, ParameterSetName="RemoveByContainerNodeID", HelpMessage = "Site server where the SMS Provider is installed.")]
     [ValidateNotNullOrEmpty()]
     [string] $SiteServer
 
-    , [parameter(Mandatory = $true, HelpMessage = "Namespace: root\sms\site_COD for examle.")]
+    , [parameter(Mandatory = $true, ParameterSetName="RemoveByCI_ID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
+    [parameter(Mandatory = $true, ParameterSetName="RemoveByContainerNodeID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
     [ValidateNotNullOrEmpty()]
     [string] $Namespace
 
-    , [parameter(Mandatory = $true, HelpMessage = "The unique ID of the update item.")]
+    , [parameter(Mandatory = $true, ParameterSetName="RemoveByCI_ID", HelpMessage = "The unique ID of the update item.")]
     [ValidateNotNullOrEmpty()]
     [UInt32[]] $CI_ID
+
+    , [parameter(Mandatory = $true, ParameterSetName="RemoveByContainerNodeID", HelpMessage = "The unique ContainerNodeID of the update node.")]
+    [ValidateNotNullOrEmpty()]
+    [uint32[]] $ContainerNodeID
 
     , [parameter(Mandatory = $false, HelpMessage = "The SUG ID (Software Update Group ID).")]
     [UInt32[]] $SUG_CI_ID
@@ -26,13 +32,30 @@ Begin {
 
     [void] [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
-    Write-Verbose "SiteServer    = $SiteServer"
-    Write-Verbose "Namespace     = $Namespace"
-    Write-Verbose "CI_ID         = $CI_ID"
-    Write-Verbose "SUG_CI_ID     = $SUG_CI_ID"
+    Write-Verbose "SiteServer       = $SiteServer"
+    Write-Verbose "Namespace        = $Namespace"
+    Write-Verbose "CI_ID            = $CI_ID"
+    Write-Verbose "ContainerNodeID  = $ContainerNodeID"
+    Write-Verbose "SUG_CI_ID        = $SUG_CI_ID"
 
     if (!$force -and [Microsoft.VisualBasic.Interaction]::MsgBox("Remove selected updates from $(if ($SUG_CI_ID.Count) {$SUG_CI_ID.Count} else {"all"}) SUG?", "YesNo,SystemModal,Question,DefaultButton1", "Start confirmation") -ne 'Yes') {
-        return 0
+        break 
+    }
+    
+    if ($psCmdlet.ParameterSetName -eq "RemoveByContainerNodeID") {
+        Write-Verbose "... running by ParameterSetName = ""RemoveByContainerNodeID"", get all CI_ID updates from ContainerNodeID = $ContainerNodeID"
+        $Query = @"
+        SELECT SMS_SoftwareUpdate.CI_ID
+        FROM
+            SMS_ObjectContainerItem
+            JOIN SMS_SoftwareUpdate
+                ON SMS_SoftwareUpdate.ModelName = SMS_ObjectContainerItem.InstanceKey        
+        WHERE 
+            SMS_ObjectContainerItem.ContainerNodeID = '$ContainerNodeID'
+"@
+        $CI_ID = @( (Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace).CI_ID )
+        Write-Verbose "CI_ID count = $($CI_ID.Count)"
+        Write-Verbose "CI_ID = $($CI_ID -join ", ")"
     }
 
     $LockStateName = @{0 = "Unassigned"; 1 = "Assigned"; 2 = "Requested"; 3 = "PendingAssignment"; 4 = "TimedOut"; 5 = "NotFound"; }
@@ -62,7 +85,7 @@ Process {
     $AllSUGs | ForEach-Object {$_.get()}
 
     foreach ($SUG in $AllSUGs) {
-        Write-Verbose "Start processing SUG: $($SUG.LocalizedDisplayName)"
+        Write-Verbose "Start processing SUG: ""$($SUG.LocalizedDisplayName)"""
         $RemSUGUpdates = New-Object System.Collections.Generic.HashSet[UInt32] (, [UInt32[]]@($CI_ID))
         $CurSUGUpdates = New-Object System.Collections.Generic.HashSet[UInt32] (, [UInt32[]]@($SUG.Updates))
         $CurSUGUpdates.ExceptWith($RemSUGUpdates)
@@ -78,14 +101,14 @@ Process {
                 Write-Verbose $Text
                 $Answer = [Microsoft.VisualBasic.Interaction]::MsgBox($Text, "AbortRetryIgnore,SystemModal,Question,DefaultButton2", "SEDO locked")
                 switch ($Answer) {
-                    'Abort' { return 0 }
+                    'Abort' { break }
                     'Ignore' { $NextSug = $true; continue }
                 }
             }
             if (!$Locked.LockState) {
                 $SUG.Updates = $CurSUGUpdates
                 $SUGChanged += $SUG.Put()
-                Write-Verbose -Message "Successfully removed update from '$($SUG.LocalizedDisplayName)'"
+                Write-Verbose -Message "Successfully removed update from ""$($SUG.LocalizedDisplayName)"""
             }
         }
     }
