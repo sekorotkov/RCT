@@ -1,22 +1,22 @@
-[CmdletBinding(SupportsShouldProcess, DefaultParameterSetName="RemoveByCI_ID")]
+[CmdletBinding(SupportsShouldProcess, DefaultParameterSetName="ByCI_ID")]
 param(
-    [parameter( Mandatory = $true, ParameterSetName="RemoveByCI_ID", HelpMessage = "Site server where the SMS Provider is installed.")]
-    [parameter( Mandatory = $true, ParameterSetName="RemoveByContainerNodeID", HelpMessage = "Site server where the SMS Provider is installed.")]
+    [parameter( Mandatory = $true, ParameterSetName="ByCI_ID", HelpMessage = "Site server where the SMS Provider is installed.")]
+    [parameter( Mandatory = $true, ParameterSetName="ByContainerNodeID", HelpMessage = "Site server where the SMS Provider is installed.")]
     [ValidateNotNullOrEmpty()]
     [string] $SiteServer
 
-    , [parameter(Mandatory = $true, ParameterSetName="RemoveByCI_ID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
-    [parameter(Mandatory = $true, ParameterSetName="RemoveByContainerNodeID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
+    , [parameter(Mandatory = $true, ParameterSetName="ByCI_ID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
+    [parameter(Mandatory = $true, ParameterSetName="ByContainerNodeID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
     [ValidateNotNullOrEmpty()]
     [string] $Namespace
 
-    , [parameter(Mandatory = $true, ParameterSetName="RemoveByCI_ID", HelpMessage = "The unique ID of the update item.")]
+    , [parameter(Mandatory = $true, ParameterSetName="ByCI_ID", HelpMessage = "The unique ID of the update item.")]
     [ValidateNotNullOrEmpty()]
     [UInt32[]] $CI_ID
 
-    , [parameter(Mandatory = $true, ParameterSetName="RemoveByContainerNodeID", HelpMessage = "The unique ContainerNodeID of the update node.")]
+    , [parameter(Mandatory = $true, ParameterSetName="ByContainerNodeID", HelpMessage = "The unique ContainerNodeID of the update node.")]
     [ValidateNotNullOrEmpty()]
-    [uint32[]] $ContainerNodeID
+    [UInt32[]] $ContainerNodeID
 
     , [parameter(Mandatory = $false, HelpMessage = "The SUG ID (Software Update Group ID).")]
     [UInt32[]] $SUG_CI_ID
