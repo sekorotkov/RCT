@@ -5,7 +5,7 @@
 - Remove-RCTUpdateFromSUG
 - Get-RCTSUCompliance
 
-## New-RCTSUGByCollection:
+## New-RCTSUGByCollection
 
 Создаёт Группу обновлений (SUG), которые требуются на членах коллекции устройств. Выбираем группу, правой кнопкой / "Create SUG for Collection"
 
@@ -15,7 +15,7 @@
 
 Note: Пока скрипт использует CM-командлет "New-CMSoftwareUpdateGroup", позже, если потребуется, перепишу под работу через WMI. Подписывайтесь на github. Туда буду добавлять и другие RCT.
 
-## Get-RCTUpdateSystemCompliance:
+## Get-RCTUpdateSystemCompliance
 
 Показывает состояние "Required" / "Installed" для конкретного обновления
 
@@ -32,9 +32,10 @@ Note: Пока скрипт использует CM-командлет "New-CMSo
 Удаляет выбранное обновление из всех SUG (Software Update Group)
 При выделении папки (контейнера) с обновлениями, удаляет все обновления находящиеся в папке из всех SUG.
 
-    Get-RCTSUCompliance:
+## Get-RCTSUCompliance
 
 Показывает обновления требуемые для членов выбранной коллекции устройств.
+В список не входят обновления из категории "Upgrade"
 
 ## Как установить
 
