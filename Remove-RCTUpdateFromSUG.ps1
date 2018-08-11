@@ -16,7 +16,7 @@ param(
 
     , [parameter(Mandatory = $true, ParameterSetName="ByContainerNodeID", HelpMessage = "The unique ContainerNodeID of the update node.")]
     [ValidateNotNullOrEmpty()]
-    [UInt32[]] $ContainerNodeID
+    [UInt32] $ContainerNodeID
 
     , [parameter(Mandatory = $false, HelpMessage = "The SUG ID (Software Update Group ID).")]
     [UInt32[]] $SUG_CI_ID
@@ -72,7 +72,7 @@ Process {
         SMS_AuthorizationList
 "@
     if ($SUG_CI_ID.Count) {
-        $SUG_CI_ID -join ", "
+        $SUG_CI_ID -join ", " | Write-Verbose
         $Query += @"
         WHERE SMS_AuthorizationList.CI_ID IN ($($SUG_CI_ID -join ", "))
 "@

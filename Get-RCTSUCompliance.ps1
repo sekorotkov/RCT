@@ -84,7 +84,7 @@ Process {
             JOIN SMS_CIAllCategories
                 ON SMS_SoftwareUpdate.CI_ID = SMS_CIAllCategories.CI_ID
                 AND SMS_SoftwareUpdate.CI_ID  NOT IN (SELECT CI_ID FROM SMS_CIAllCategories WHERE CategoryInstance_UniqueID='UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5')
-        WHERE SMS_R_System.ResourceID = '$ResourceID'
+        WHERE SMS_R_System.ResourceID IN ($($ResourceID -join ", "))
 "@
     }
     ## UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5 - 'Upgrades'
