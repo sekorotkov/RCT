@@ -98,7 +98,7 @@ Process {
                         @{n = "Downloaded";             e = {$_.SMS_SoftwareUpdate.IsContentProvisioned}},
                         @{n = "Deployed";               e = {$_.SMS_SoftwareUpdate.IsDeployed}},
                         @{n = "Released or Revised";    e = {[System.Management.ManagementDateTimeConverter]::ToDateTime($_.SMS_SoftwareUpdate.DateRevised)}} |
-        Sort-Object "Netbios Name","Released or Revised" |  Out-GridView -Wait -Title "Required updates for computer"
+        Sort-Object "Netbios Name","Released or Revised" |  Out-GridView -Wait -Title "Updates required for the computer"
 }
 End {
     Write-Verbose "Completed."
