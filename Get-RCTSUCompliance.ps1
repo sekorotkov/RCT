@@ -24,6 +24,8 @@ Begin {
     if ($Verbose) { $VerbosePreference = "Continue" }
     $ErrorActionPreference = "Stop"
 
+    [void] [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
+
     Write-Verbose "SiteServer       = $SiteServer"
     Write-Verbose "Namespace        = $Namespace"
     Write-Verbose "CollectionID     = $CollectionID"
@@ -91,6 +93,10 @@ Process {
 
     $Updates = Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace
     Write-Verbose "Updates count: $($Updates.Count)"
+    if (!$Updates.Count) {
+        [Microsoft.VisualBasic.Interaction]::MsgBox("No updates are required", "OkOnly,SystemModal,Information", "Completed") | Out-Null
+        return 0
+    }
     $Updates | 
         Select-Object   @{n = "Netbios Name";  e = {$_.SMS_R_System.NetbiosName}},
                         @{n = "Update Title";           e = {$_.SMS_SoftwareUpdate.LocalizedDisplayName}},
