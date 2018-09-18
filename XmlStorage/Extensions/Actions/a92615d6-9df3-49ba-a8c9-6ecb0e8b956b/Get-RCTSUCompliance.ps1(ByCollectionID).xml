@@ -11,6 +11,6 @@
 	</ShowOn>
 	<Executable>
 		<FilePath>PowerShell.exe</FilePath>
-		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\Get-RCTSUCompliance.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -CollectionID "##SUB:CollectionID##"</Parameters>
+		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\Get-RCTSUCompliance.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -CollectionID "##SUB:CollectionID##" -Title &apos;##SUB:Name##&apos;</Parameters>
 	</Executable>
 </ActionDescription>

@@ -17,6 +17,9 @@ param(
     , [parameter(Mandatory = $true, ParameterSetName="ByResourceID", HelpMessage = "The unique ID of the device.")]
     [ValidateNotNullOrEmpty()]
     [UInt32[]] $ResourceID
+
+    , [parameter(Mandatory = $false, HelpMessage = "Title of GridView window.")]
+    [string] $Title = "Updates required for the computer"
 )
 Begin {
     #[System.Threading.Thread]::CurrentThread.CurrentCulture = [System.Globalization.CultureInfo]"en-US"
@@ -26,10 +29,11 @@ Begin {
 
     [void] [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
-    Write-Verbose "SiteServer       = $SiteServer"
-    Write-Verbose "Namespace        = $Namespace"
-    Write-Verbose "CollectionID     = $CollectionID"
-    Write-Verbose "ResourceID       = $ResourceID"
+    Write-Verbose "SiteServer   = $SiteServer"
+    Write-Verbose "Namespace    = $Namespace"
+    Write-Verbose "CollectionID = $CollectionID"
+    Write-Verbose "ResourceID   = $ResourceID"
+    Write-Verbose "Title        = $Title"
 }
 Process {
     if ($psCmdlet.ParameterSetName -eq "ByCollectionID") {
@@ -57,7 +61,7 @@ Process {
                 AND SMS_SoftwareUpdate.IsSuperseded = 0
             JOIN SMS_CIAllCategories
                 ON SMS_SoftwareUpdate.CI_ID = SMS_CIAllCategories.CI_ID
-                AND SMS_SoftwareUpdate.CI_ID  NOT IN (SELECT CI_ID FROM SMS_CIAllCategories WHERE CategoryInstance_UniqueID='UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5')
+                AND SMS_SoftwareUpdate.CI_ID NOT IN (SELECT CI_ID FROM SMS_CIAllCategories WHERE CategoryInstance_UniqueID='UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5')
         WHERE
             SMS_FullCollectionMembership.CollectionID = '$CollectionID'
 "@
@@ -85,13 +89,13 @@ Process {
                 AND SMS_SoftwareUpdate.IsSuperseded = 0
             JOIN SMS_CIAllCategories
                 ON SMS_SoftwareUpdate.CI_ID = SMS_CIAllCategories.CI_ID
-                AND SMS_SoftwareUpdate.CI_ID  NOT IN (SELECT CI_ID FROM SMS_CIAllCategories WHERE CategoryInstance_UniqueID='UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5')
+                AND SMS_SoftwareUpdate.CI_ID NOT IN (SELECT CI_ID FROM SMS_CIAllCategories WHERE CategoryInstance_UniqueID='UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5')
         WHERE SMS_R_System.ResourceID IN ($($ResourceID -join ", "))
 "@
     }
     ## UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5 - 'Upgrades'
 
-    $Updates = Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace
+    $Updates = @(Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace)
     Write-Verbose "Updates count: $($Updates.Count)"
     if (!$Updates.Count) {
         [Microsoft.VisualBasic.Interaction]::MsgBox("No updates are required", "OkOnly,SystemModal,Information", "Completed") | Out-Null
@@ -104,7 +108,7 @@ Process {
                         @{n = "Downloaded";             e = {$_.SMS_SoftwareUpdate.IsContentProvisioned}},
                         @{n = "Deployed";               e = {$_.SMS_SoftwareUpdate.IsDeployed}},
                         @{n = "Released or Revised";    e = {[System.Management.ManagementDateTimeConverter]::ToDateTime($_.SMS_SoftwareUpdate.DateRevised)}} |
-        Sort-Object "Netbios Name","Released or Revised" |  Out-GridView -Wait -Title "Updates required for the computer"
+        Sort-Object "Netbios Name","Released or Revised" |  Out-GridView -Wait -Title $Title
 }
 End {
     Write-Verbose "Completed."

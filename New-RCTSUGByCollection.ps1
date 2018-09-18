@@ -57,7 +57,7 @@ Process {
 "@
     ## UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5 - 'Upgrades'
 
-    $Updates = Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace
+    $Updates = @(Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace)
     Write-Verbose "Updates count: $($Updates.Count)"
 
         if ($Updates.Count) {
