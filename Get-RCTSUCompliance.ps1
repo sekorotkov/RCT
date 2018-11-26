@@ -20,6 +20,9 @@ param(
 
     , [parameter(Mandatory = $false, HelpMessage = "Title of GridView window.")]
     [string] $Title = "Updates required for the computer"
+
+    , [parameter(Mandatory = $false, HelpMessage = "Exclude updates with Custom Severity.")]
+    [switch] $ExcludeCustomSeverity
 )
 Begin {
     #[System.Threading.Thread]::CurrentThread.CurrentCulture = [System.Globalization.CultureInfo]"en-US"
@@ -34,6 +37,7 @@ Begin {
     Write-Verbose "CollectionID = $CollectionID"
     Write-Verbose "ResourceID   = $ResourceID"
     Write-Verbose "Title        = $Title"
+    Write-Verbose "ExcludeCustomSeverity = $ExcludeCustomSeverity"
 }
 Process {
     if ($psCmdlet.ParameterSetName -eq "ByCollectionID") {
@@ -41,6 +45,7 @@ Process {
         $Query = @"
         SELECT DISTINCT
             SMS_R_System.NetbiosName
+            , SMS_SoftwareUpdate.CI_ID
             , SMS_SoftwareUpdate.LocalizedDisplayName
             , SMS_SoftwareUpdate.NumMissing
             , SMS_SoftwareUpdate.IsContentProvisioned
@@ -71,6 +76,7 @@ Process {
         $Query = @"
         SELECT DISTINCT
             SMS_R_System.NetbiosName
+            , SMS_SoftwareUpdate.CI_ID
             , SMS_SoftwareUpdate.LocalizedDisplayName
             , SMS_SoftwareUpdate.NumMissing
             , SMS_SoftwareUpdate.IsContentProvisioned
@@ -94,13 +100,19 @@ Process {
 "@
     }
     ## UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5 - 'Upgrades'
-
+    if ($ExcludeCustomSeverity) {
+        Write-Verbose "Exlude Custom Severity updates"
+        $Query += " AND SMS_SoftwareUpdate.CustomSeverity = 0"
+    }
+    
     $Updates = @(Get-WmiObject -Query $Query -ComputerName $SiteServer -Namespace $Namespace)
-    Write-Verbose "Updates count: $($Updates.Count)"
+    Write-Verbose "WMI Items count: $($Updates.Count)"
     if (!$Updates.Count) {
         [Microsoft.VisualBasic.Interaction]::MsgBox("No updates are required", "OkOnly,SystemModal,Information", "Completed") | Out-Null
         return 0
     }
+
+    $Title += " (updates count: $(($Updates.SMS_SoftwareUpdate.CI_ID | Select-Object -Unique).Count))"
     $Updates | 
         Select-Object   @{n = "Netbios Name";  e = {$_.SMS_R_System.NetbiosName}},
                         @{n = "Update Title";           e = {$_.SMS_SoftwareUpdate.LocalizedDisplayName}},
