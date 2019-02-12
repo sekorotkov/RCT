@@ -112,15 +112,15 @@ Process {
         return 0
     }
 
-    $Title += " (updates count: $(($Updates.SMS_SoftwareUpdate.CI_ID | Select-Object -Unique).Count))"
+    $Title += " (updates count: $(($Updates.SMS_SoftwareUpdate.CI_ID | Select-Object -Unique).Count)).$(if($ExcludeCustomSeverity) {" Updates with """Custom severity""" have been excluded."})"
     $Updates | 
-        Select-Object   @{n = "Netbios Name";  e = {$_.SMS_R_System.NetbiosName}},
+        Select-Object   @{n = "Netbios Name";           e = {$_.SMS_R_System.NetbiosName}},
                         @{n = "Update Title";           e = {$_.SMS_SoftwareUpdate.LocalizedDisplayName}},
                         @{n = "Required";               e = {$_.SMS_SoftwareUpdate.NumMissing}},
                         @{n = "Downloaded";             e = {$_.SMS_SoftwareUpdate.IsContentProvisioned}},
                         @{n = "Deployed";               e = {$_.SMS_SoftwareUpdate.IsDeployed}},
                         @{n = "Released or Revised";    e = {[System.Management.ManagementDateTimeConverter]::ToDateTime($_.SMS_SoftwareUpdate.DateRevised)}} |
-        Sort-Object "Netbios Name","Released or Revised" |  Out-GridView -Wait -Title $Title
+            Sort-Object "Netbios Name","Released or Revised" | Out-GridView -Wait -Title $Title
 }
 End {
     Write-Verbose "Completed."
