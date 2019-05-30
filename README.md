@@ -2,7 +2,17 @@
 
 ## How it looks
 
+- Updates required for members:
+
 ![Updates required for members](screenshots/rct-01.png?raw=true "Updates required for the computer")
+
+- Update compliance status:
+
+![Update compliance status](screenshots/rct-03.png?raw=true "Update compliance status")
+
+- Create SUG for Collection:
+
+![Create SUG for Collection](screenshots/rct-04.png?raw=true "Create SUG for Collection")
 
 # RCT (Right Click Tools) для работы с обновлениями
 
