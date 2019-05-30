@@ -1,3 +1,9 @@
+# RCT (Right Click Tools) for Updates
+
+## How it looks
+
+![Updates required for members](screenshots\rct-01.png?raw=true "Updates required for the computer")
+
 # RCT (Right Click Tools) для работы с обновлениями
 
 - New-RCTSUGByCollection
