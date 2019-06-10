@@ -111,13 +111,17 @@ Process {
         $Title += ". All devices: $($ResourceID.count), need updates: $(($Updates.SMS_R_System.NetbiosName | Select-Object -Unique).Count). All updates: $(($Updates.SMS_SoftwareUpdate.CI_ID | Select-Object -Unique).Count)."
         $Title += " ""Custom severity"" excluded: $ExcludeCustomSeverity"
         $Updates | 
-            Select-Object   @{n = "Netbios Name"; e = {$_.SMS_R_System.NetbiosName}},
-                            @{n = "Update Title"; e = {$_.SMS_SoftwareUpdate.LocalizedDisplayName}},
-                            @{n = "Required"; e = {$_.SMS_SoftwareUpdate.NumMissing}},
-                            @{n = "Downloaded"; e = {$_.SMS_SoftwareUpdate.IsContentProvisioned}},
-                            @{n = "Deployed"; e = {$_.SMS_SoftwareUpdate.IsDeployed}},
-                            @{n = "Released or Revised"; e = {[System.Management.ManagementDateTimeConverter]::ToDateTime($_.SMS_SoftwareUpdate.DateRevised)}} |
-                                Sort-Object "Netbios Name", "Released or Revised" | Out-GridView -Wait -Title $Title
+        Select-Object   @{n = "Netbios Name"; e = { $_.SMS_R_System.NetbiosName } },
+        @{n = "Update Title"; e = { $_.SMS_SoftwareUpdate.LocalizedDisplayName } },
+        @{n = "Required"; e = { $_.SMS_SoftwareUpdate.NumMissing } },
+        @{n = "Downloaded"; e = { $_.SMS_SoftwareUpdate.IsContentProvisioned } },
+        @{n = "Deployed"; e = { $_.SMS_SoftwareUpdate.IsDeployed } },
+        @{n = "Released or Revised"; e = { [System.Management.ManagementDateTimeConverter]::ToDateTime($_.SMS_SoftwareUpdate.DateRevised) } } |
+        Sort-Object "Netbios Name", "Released or Revised" | Out-GridView -Wait -Title $Title
+    }
+    else { 
+        [Microsoft.VisualBasic.Interaction]::MsgBox("No device found", "OkOnly,SystemModal,Information", "Completed") | Out-Null
+        return 0
     }
 }
 End {
