@@ -28,7 +28,7 @@
 
 ## How to install
 
-- Do backup Console folder "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole"
+- Backup the Console folder "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole" or "C:\Program Files (x86)\Microsoft Endpoint Manager\AdminConsole"
 
 - Download ZIP-file, press "Clone or Download" button / "Download ZIP". Unblock file from Properties / Unblock
 
