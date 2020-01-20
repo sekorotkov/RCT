@@ -1,0 +1,17 @@
+<ActionDescription Class="Executable" DisplayName="Remove the contained updates from all SUGs" MnemonicDisplayName="Remove the contained updates from all SUGs" Description="
+Delete all updates from a folder from all Software Update Group">
+	<ImagesDescription>
+		<ResourceAssembly>
+			<Assembly>AdminUI.UIResources.dll</Assembly>
+			<Type>Microsoft.ConfigurationManagement.AdminConsole.UIResources.Properties.Resources.resources</Type>
+		</ResourceAssembly>
+		<ImageResourceName>RemoveFrom</ImageResourceName>
+	</ImagesDescription>
+	<ShowOn>
+		<string>ContextMenu</string>
+	</ShowOn>
+	<Executable>
+		<FilePath>PowerShell.exe</FilePath>
+		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\Remove-RCTUpdateFromSUG.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -ContainerNodeID ##SUB:ContainerNodeID##</Parameters>
+	</Executable>
+</ActionDescription>

@@ -1,0 +1,16 @@
+<ActionDescription Class="Executable" DisplayName="Updates required for members" MnemonicDisplayName="Updates required for members" Description="Get the required Software Update for the selected Collection">
+	<ImagesDescription>
+		<ResourceAssembly>
+			<Assembly>AdminUI.UIResources.dll</Assembly>
+			<Type>Microsoft.ConfigurationManagement.AdminConsole.UIResources.Properties.Resources.resources</Type>
+		</ResourceAssembly>
+		<ImageResourceName>Information</ImageResourceName>
+	</ImagesDescription>
+	<ShowOn>
+		<string>ContextMenu</string>
+	</ShowOn>
+	<Executable>
+		<FilePath>PowerShell.exe</FilePath>
+		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\Get-RCTSUCompliance.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -CollectionID "##SUB:CollectionID##" -Title &apos;##SUB:Name##&apos; -ExcludeCustomSeverity</Parameters>
+	</Executable>
+</ActionDescription>
