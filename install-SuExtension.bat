@@ -26,7 +26,7 @@ echo Console version is: %_ver%
 
 
 :: Detect: SCCM folder extension for console exist
-IF NOT EXIST %_home%Xml-SuExtension\%_ver% (
+IF NOT EXIST "%_home%Xml-SuExtension\%_ver%" (
 	ECHO SCCM extension for console version %_ver% does not exists!
 	PAUSE
 	EXIT /b 1 
