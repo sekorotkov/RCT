@@ -30,7 +30,9 @@
 
 - Backup the Console folder "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole" or "C:\Program Files (x86)\Microsoft Endpoint Manager\AdminConsole"
 
-- Download ZIP-file, press "Clone or Download" button / "Download ZIP". Unblock file from Properties / Unblock
+- Download ZIP-file. Press "Clone or Download" button / "Download ZIP".
+
+- **Unblock downloaded file** from Properties / Unblock
 
 - Extract All
 
