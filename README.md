@@ -29,24 +29,33 @@
 ## How to install
 
 - Backup the Console folder "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole" or "C:\Program Files (x86)\Microsoft Endpoint Manager\AdminConsole"
-
 - Download ZIP-file. Press "Clone or Download" button / "Download ZIP".
-
 - **Unblock downloaded file** from Properties / Unblock
-
 - Extract All
-
 - For the RCT tool, right-click on "install.bat" and select "Run as Administrator". The bat file will copy RCT *.ps1 and *.xml files.
-
 - For the Console extension, right-click on "install-SuExtension.bat" and select "Run as Administrator". The bat file will copy Software Update Console extension xml-files and ps1 for RCT. Only if your Console supported ("Xml-SuExtension" - the subfolder with Supported version. Now is 1906/1910 )
-
 - Restart the CM-Console
 
 Happy updates!
 
+## Modified Console Objects
+
+Nodes:
+
+- \Assets and Compliance\Overview\Devices\<Selected Device>\<Tab: "Updates: Requird">
+- \Assets and Compliance\Overview\Device Collections\<Selected Collection>\<Tab: "Updates: Requird">
+- \Software Library\Overview\Software Updates\All Software Updates\<Selected Update>\<Tab: "Compliance: Required">
+- \Software Library\Overview\Software Updates\Software Update Groups\<Selected SUG>\<Tab: "Compliance: Required">
+
+Navigation Aliases:
+
+- MembersOfCollection: \Assets and Compliance\Overview\Devices\<Opened Collection>\<Selected Device>\<Tab: "Updates: Requird">
+- OpenSoftwareUpdatePackage: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUG>\<Selected Update>\<Tab: "Compliance: Required">
+- OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUP>\<Selected Update>\<Tab: "Compliance: Required">
+
 ## Russian
 
-# RCT (Right Click Tools) для работы с обновлениями
+## RCT (Right Click Tools) для работы с обновлениями
 
 - New-RCTSUGByCollection
 - Get-RCTUpdateSystemCompliance
@@ -68,7 +77,6 @@ Happy updates!
 Скрипт может выводит статус в результирующей таблице в двух режимах:
 
 - Звёздочкой для каждого из состояний
-
 - Один столбец с текстом Required / Installed.
 
 Для включения второго режима добавьте параметр "-StatusInOneColumn" в вызов скрипта в xml файлах.
