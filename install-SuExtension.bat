@@ -11,7 +11,7 @@ IF %ERRORLEVEL% EQU 0 (
 )
 
 :: Set: Work folders
-set _admincosole="%SMS_ADMIN_UI_PATH%\..\..\"
+set _admincosole=%SMS_ADMIN_UI_PATH%\..\..\
 set _home=%~dp0
 
 :: This code is:
@@ -36,8 +36,14 @@ echo "Extension for console version %_ver% exists..."
 
 rem copy *.ps1 / *.xml files
 ECHO Copy Powershell scripts:
-XCOPY "%_home%Tools\*.ps1" %_admincosole% /S /I /F /Y
+XCOPY "%_home%Tools\*.ps1" "%_admincosole%" /S /I /F /Y
 
 ECHO Copy XML configs:
-XCOPY "%_home%Xml-SuExtension\%_ver%\*.xml" %_admincosole% /S /I /F /Y
+XCOPY "%_home%Xml-SuExtension\%_ver%\*.xml" "%_admincosole%" /S /I /F /Y
+echo .
+echo bugfix for 5.1910.1050.1002:
+if exist "%_admincosole%AssetManagementNode.xml" del "%_admincosole%AssetManagementNode.xml"
+if exist "%_admincosole%ConnectedConsole.xml" del "%_admincosole%ConnectedConsole.xml"
+if exist "%_admincosole%SoftwareLibraryNode.xml" del "%_admincosole%SoftwareLibraryNode.xml"
+echo Complete
 PAUSE
