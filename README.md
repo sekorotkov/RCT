@@ -53,6 +53,10 @@ Navigation Aliases:
 - OpenSoftwareUpdatePackage: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUG>\<Selected Update>\<Tab: "Compliance: Required">
 - OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUP>\<Selected Update>\<Tab: "Compliance: Required">
 
+Aditions:
+
+- OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUP>\<Selected Update>\<RMC: "Publish Third-Party Software Update Content">
+
 ## Russian
 
 ## RCT (Right Click Tools) для работы с обновлениями
