@@ -50,12 +50,18 @@ Nodes:
 Navigation Aliases:
 
 - MembersOfCollection: \Assets and Compliance\Overview\Devices\<Opened Collection>\<Selected Device>\<Tab: "Updates: Requird">
-- OpenSoftwareUpdatePackage: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUG>\<Selected Update>\<Tab: "Compliance: Required">
-- OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUP>\<Selected Update>\<Tab: "Compliance: Required">
+- OpenSoftwareUpdatePackage: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUP>\<Selected Update>\<Tab: "Compliance: Required">
+- OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUG>\<Selected Update>\<Tab: "Compliance: Required">
 
-Aditions:
+Additions:
 
-- OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUP>\<Selected Update>\<RMC: "Publish Third-Party Software Update Content">
+- OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUG>\<Selected Update>\<RMC: "Publish Third-Party Software Update Content">
+
+Where:
+SUG - Software Update Group
+SUP - Software Update Package
+Tab - TabPage
+RMC - Right Mouse Click
 
 ## Russian
 
