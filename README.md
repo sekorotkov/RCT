@@ -58,10 +58,11 @@ Additions:
 - OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUG>\<Selected Update>\<RMC: "Publish Third-Party Software Update Content">
 
 Where:
-SUG - Software Update Group
-SUP - Software Update Package
-Tab - TabPage
-RMC - Right Mouse Click
+
+- SUG - Software Update Group
+- SUP - Software Update Package
+- Tab - TabPage
+- RMC - Right Mouse Click
 
 ## Russian
 
