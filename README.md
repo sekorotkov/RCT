@@ -42,14 +42,14 @@ Happy updates!
 
 Nodes:
 
-- \Assets and Compliance\Overview\Devices\<Selected Device>\<Tab: "Updates: Requird">
-- \Assets and Compliance\Overview\Device Collections\<Selected Collection>\<Tab: "Updates: Requird">
+- \Assets and Compliance\Overview\Devices\<Selected Device>\<Tab: "Updates: Required">
+- \Assets and Compliance\Overview\Device Collections\<Selected Collection>\<Tab: "Updates: Required">
 - \Software Library\Overview\Software Updates\All Software Updates\<Selected Update>\<Tab: "Compliance: Required">
 - \Software Library\Overview\Software Updates\Software Update Groups\<Selected SUG>\<Tab: "Compliance: Required">
 
 Navigation Aliases:
 
-- MembersOfCollection: \Assets and Compliance\Overview\Devices\<Opened Collection>\<Selected Device>\<Tab: "Updates: Requird">
+- MembersOfCollection: \Assets and Compliance\Overview\Devices\<Opened Collection>\<Selected Device>\<Tab: "Updates: Required">
 - OpenSoftwareUpdatePackage: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUP>\<Selected Update>\<Tab: "Compliance: Required">
 - OpenUpdateGroup: \Software Library\Overview\Software Updates\All Software Updates\<Opened SUG>\<Selected Update>\<Tab: "Compliance: Required">
 
