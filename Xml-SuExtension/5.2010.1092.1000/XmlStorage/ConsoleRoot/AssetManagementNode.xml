@@ -1044,7 +1044,7 @@ select * from SMS_CHAlert where AlertState = 0 and FeatureGroup = 4  and IsIgnor
                               </ResourceAssembly>
                               <ImageResourceName>ClientNotification</ImageResourceName>
                             </ImagesDescription>
-                            <MatchPattern>^True-.*True</MatchPattern>
+                            <MatchPattern>^True-.*True</MatchPattern> <!-- Requires Tenant Attach AND one of (Device Explorer CMG OR Device Explorer Azure Portal) -->
                             <MatchValueToTest>##SUB:NV:ComgmtNewOnboardingUI-IsFeatureExposed##-##SUB:NV:DeviceExplorerCMG-IsFeatureExposed##-##SUB:NV:DeviceExplorerAzurePortal-IsFeatureExposed##</MatchValueToTest>
                             <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                             <ActionStateAssembly>
@@ -4962,13 +4962,13 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           </ResourceAssembly>
                           <ImageResourceName>ViewRelationship</ImageResourceName>
                         </ImagesDescription>
-                        <MatchPattern>True</MatchPattern>
-                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                         <ActionAssembly>
                           <Assembly>AdminUI.CollectionRelationshipView.dll</Assembly>
                           <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionRelationshipView.RelationshipPage</Type>
                           <Method>InitializeCollectionRelationshipPage</Method>
                         </ActionAssembly>
+                        <MatchPattern>True</MatchPattern>
+                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                       </ActionDescription>
                     </ActionGroups>
                   </ActionDescription>
@@ -5022,8 +5022,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationFullNode</PathAlias>
                       </NavigationDescription>
@@ -5035,6 +5033,8 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInFullEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                     </ActionDescription>
                     <ActionDescription NamespaceGuid="232f4476-2d45-a522-fefc-57c255cff32a" Class="Navigation" DisplayName="CollectionInfoInIncrementalEvaluationQueue" MnemonicDisplayName="CollectionInfoInIncrementalEvaluationQueue" Description="CollectionInfoInIncrementalEvaluationQueueDescription">
                       <ShowOn>
@@ -5045,8 +5045,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationIncrementalNode</PathAlias>
                       </NavigationDescription>
@@ -5058,6 +5056,8 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInIncrementalEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                     </ActionDescription>
                     <ActionDescription NamespaceGuid="a3cf444e-11f2-f5e2-f233-17c35fcef421" Class="Navigation" DisplayName="CollectionInfoInManualEvaluationQueue" MnemonicDisplayName="CollectionInfoInManualEvaluationQueue" Description="CollectionInfoInManualEvaluationQueueDescription">
                       <ShowOn>
@@ -5068,8 +5068,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationManualNode</PathAlias>
                       </NavigationDescription>
@@ -5081,6 +5079,8 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInManualEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                     </ActionDescription>
                     <ActionDescription NamespaceGuid="ce3f24cc-e533-5521-c2f3-579359cef62c" Class="Navigation" DisplayName="CollectionInfoInNewEvaluationQueue" MnemonicDisplayName="CollectionInfoInNewEvaluationQueue" Description="CollectionInfoInNewEvaluationQueueDescription">
                       <ShowOn>
@@ -5091,8 +5091,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationNewNode</PathAlias>
                       </NavigationDescription>
@@ -5104,6 +5102,8 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInNewEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                     </ActionDescription>
                   </GoToRelatedActions>
                   <PageList>
@@ -5285,6 +5285,9 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           <string>DefaultContextualTab</string>
                                           <string>ContextMenu</string>
                                         </ShowOn>
+                                        <MatchPattern>^2$</MatchPattern>
+                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
+                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ResourceAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.Properties.Resources.resources</Type>
@@ -5296,9 +5299,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           </ResourceAssembly>
                                           <ImageResourceName>ShowMessages</ImageResourceName>
                                         </ImagesDescription>
-                                        <MatchPattern>^2$</MatchPattern>
-                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
-                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ActionAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.SystemStatusMenuActions</Type>
@@ -5953,13 +5953,13 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           </ResourceAssembly>
                           <ImageResourceName>ViewRelationship</ImageResourceName>
                         </ImagesDescription>
-                        <MatchPattern>True</MatchPattern>
-                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                         <ActionAssembly>
                           <Assembly>AdminUI.CollectionRelationshipView.dll</Assembly>
                           <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionRelationshipView.RelationshipPage</Type>
                           <Method>InitializeCollectionRelationshipPage</Method>
                         </ActionAssembly>
+                        <MatchPattern>True</MatchPattern>
+                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                       </ActionDescription>
                     </ActionGroups>
                   </ActionDescription>
@@ -6173,6 +6173,9 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           <string>DefaultContextualTab</string>
                                           <string>ContextMenu</string>
                                         </ShowOn>
+                                        <MatchPattern>^2$</MatchPattern>
+                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
+                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ResourceAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.Properties.Resources.resources</Type>
@@ -6184,9 +6187,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           </ResourceAssembly>
                                           <ImageResourceName>ShowMessages</ImageResourceName>
                                         </ImagesDescription>
-                                        <MatchPattern>^2$</MatchPattern>
-                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
-                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ActionAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.SystemStatusMenuActions</Type>
@@ -7649,13 +7649,13 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           </ResourceAssembly>
                           <ImageResourceName>ViewRelationship</ImageResourceName>
                         </ImagesDescription>
-                        <MatchPattern>True</MatchPattern>
-                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                         <ActionAssembly>
                           <Assembly>AdminUI.CollectionRelationshipView.dll</Assembly>
                           <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionRelationshipView.RelationshipPage</Type>
                           <Method>InitializeCollectionRelationshipPage</Method>
                         </ActionAssembly>
+                        <MatchPattern>True</MatchPattern>
+                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                       </ActionDescription>
                     </ActionGroups>
                   </ActionDescription>
@@ -7723,7 +7723,7 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                     </ActionGroups>
                   </ActionDescription>
                 </Actions>
-                <DetailsPaneDescription ObjectClass="SMS_CollectionEvaluationFull">
+                <DetailsPaneDescription ObjectClass="SMS_Collection">
                   <GoToRelatedActions>
                     <ActionDescription NamespaceGuid="b22faf76-1df5-1522-ce4c-17e2d9cff32e" Class="Navigation" DisplayName="CollectionInfoInFullEvaluationQueue" MnemonicDisplayName="CollectionInfoInFullEvaluationQueue" Description="CollectionInfoInFullEvaluationQueueDescription">
                       <ShowOn>
@@ -7734,8 +7734,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationFullNode</PathAlias>
                       </NavigationDescription>
@@ -7747,7 +7745,9 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInFullEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
-                    </ActionDescription>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>                    
+		    </ActionDescription>
                     <ActionDescription NamespaceGuid="b32f4476-2d45-a522-fefc-57c255cff32a" Class="Navigation" DisplayName="CollectionInfoInIncrementalEvaluationQueue" MnemonicDisplayName="CollectionInfoInIncrementalEvaluationQueue" Description="CollectionInfoInIncrementalEvaluationQueueDescription">
                       <ShowOn>
                         <string>DefaultHomeTab</string>
@@ -7757,8 +7757,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationIncrementalNode</PathAlias>
                       </NavigationDescription>
@@ -7770,6 +7768,8 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInIncrementalEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                     </ActionDescription>
                     <ActionDescription NamespaceGuid="b3cf444e-11f2-f5e2-f233-17c35fcef421" Class="Navigation" DisplayName="CollectionInfoInManualEvaluationQueue" MnemonicDisplayName="CollectionInfoInManualEvaluationQueue" Description="CollectionInfoInManualEvaluationQueueDescription">
                       <ShowOn>
@@ -7780,8 +7780,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationManualNode</PathAlias>
                       </NavigationDescription>
@@ -7793,6 +7791,8 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInManualEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                     </ActionDescription>
                     <ActionDescription NamespaceGuid="be3f24cc-e533-5521-c2f3-579359cef62c" Class="Navigation" DisplayName="CollectionInfoInNewEvaluationQueue" MnemonicDisplayName="CollectionInfoInNewEvaluationQueue" Description="CollectionInfoInNewEvaluationQueueDescription">
                       <ShowOn>
@@ -7803,8 +7803,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         <Assembly>AdminUI.CollectionEvaluation.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionEvaluation.Properties.Resources.resources</Type>
                       </ResourceAssembly>
-                      <MatchPattern>True-2</MatchPattern>
-                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                       <NavigationDescription>
                         <PathAlias>CollectionEvaluationNewNode</PathAlias>
                       </NavigationDescription>
@@ -7816,10 +7814,12 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                           <ActionSecurityDescription ClassObject="SMS_CollectionInfoInNewEvaluationQueue" RequiredPermissions="1" />
                         </ClassPermissions>
                       </SecurityConfiguration>
+                      <MatchPattern>True-2</MatchPattern>
+                      <MatchValueToTest>##SUB:NV:CEView-IsFeatureExposed##-##SUB:NV:SiteType##</MatchValueToTest>
                     </ActionDescription>
                   </GoToRelatedActions>
                   <PageList>
-                    <PanePageDescription ObjectClass="SMS_CollectionEvaluationFull" PageGuid="1d03506b-b504-423a-ab94-fbabf84d401f" Description="">
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="1d03506b-b504-423a-ab94-fbabf84d401f" Description="">
                       <Groups>
                         <PageGroupDescription Title="SummaryHeader" GraphMode="false">
                           <ResourceAssembly>
@@ -7846,7 +7846,7 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         </PageGroupDescription>
                       </Groups>
                     </PanePageDescription>
-                    <PanePageDescription ObjectClass="SMS_CollectionEvaluationFull" PageGuid="901d377d-6dbe-495f-8a4a-1941462113ae" Description="RecentDeploymentsDescription">
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="901d377d-6dbe-495f-8a4a-1941462113ae" Description="RecentDeploymentsDescription">
                       <ResourceAssembly>
                         <Assembly>AdminUI.CollectionProperty.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionProperty.Properties.Resources.resources</Type>
@@ -8034,6 +8034,9 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           <string>DefaultContextualTab</string>
                                           <string>ContextMenu</string>
                                         </ShowOn>
+                                        <MatchPattern>^2$</MatchPattern>
+                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
+                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ResourceAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.Properties.Resources.resources</Type>
@@ -8045,9 +8048,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           </ResourceAssembly>
                                           <ImageResourceName>ShowMessages</ImageResourceName>
                                         </ImagesDescription>
-                                        <MatchPattern>^2$</MatchPattern>
-                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
-                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ActionAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.SystemStatusMenuActions</Type>
@@ -8064,6 +8064,9 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           <string>DefaultContextualTab</string>
                                           <string>ContextMenu</string>
                                         </ShowOn>
+                                        <MatchPattern>^7$</MatchPattern>
+                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
+                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ResourceAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.Properties.Resources.resources</Type>
@@ -8075,9 +8078,6 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                                           </ResourceAssembly>
                                           <ImageResourceName>ShowMessages</ImageResourceName>
                                         </ImagesDescription>
-                                        <MatchPattern>^7$</MatchPattern>
-                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
-                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ActionAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.SystemStatusMenuActions</Type>
@@ -8268,7 +8268,7 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         </PropertyList>
                       </QuerySettingsDescription>
                     </PanePageDescription>
-                    <PanePageDescription ObjectClass="SMS_CollectionEvaluationFull" PageGuid="d0664f26-54b2-49f1-9f0d-f9080602ba2f" Description="">
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="d0664f26-54b2-49f1-9f0d-f9080602ba2f" Description="">		    
                       <ResourceAssembly>
                         <Assembly>Adminui.ClientAgentSettings.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.ClientAgentSettings.Properties.Resources.resources</Type>
@@ -9837,13 +9837,13 @@ FROM
                           </ResourceAssembly>
                           <ImageResourceName>ViewRelationship</ImageResourceName>
                         </ImagesDescription>
-                        <MatchPattern>True</MatchPattern>
-                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                         <ActionAssembly>
                           <Assembly>AdminUI.CollectionRelationshipView.dll</Assembly>
                           <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionRelationshipView.RelationshipPage</Type>
                           <Method>InitializeCollectionRelationshipPage</Method>
                         </ActionAssembly>
+                        <MatchPattern>True</MatchPattern>
+                        <MatchValueToTest>##SUB:NV:ColRelationshipView-IsFeatureExposed##</MatchValueToTest>
                       </ActionDescription>
                     </ActionGroups>
                   </ActionDescription>
@@ -9911,9 +9911,9 @@ FROM
                     </ActionGroups>
                   </ActionDescription>
                 </Actions>
-                <DetailsPaneDescription ObjectClass="SMS_CollectionEvaluationFull">
+                <DetailsPaneDescription ObjectClass="SMS_Collection">
                   <PageList>
-                    <PanePageDescription ObjectClass="SMS_CollectionEvaluationFull" PageGuid="ed03506b-b504-423a-ab94-fbabf84d401f" Description="">
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="ed03506b-b504-423a-ab94-fbabf84d401f" Description="">
                       <Groups>
                         <PageGroupDescription Title="SummaryHeader" GraphMode="false">
                           <ResourceAssembly>
@@ -9931,7 +9931,7 @@ FROM
                         </PageGroupDescription>
                       </Groups>
                     </PanePageDescription>
-                    <PanePageDescription ObjectClass="SMS_CollectionEvaluationFull" PageGuid="e01d377d-6dbe-495f-8a4a-1941462113ae" Description="RecentDeploymentsDescription">
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="e01d377d-6dbe-495f-8a4a-1941462113ae" Description="RecentDeploymentsDescription">
                       <ResourceAssembly>
                         <Assembly>AdminUI.CollectionProperty.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.CollectionProperty.Properties.Resources.resources</Type>
@@ -10119,6 +10119,9 @@ FROM
                                           <string>DefaultContextualTab</string>
                                           <string>ContextMenu</string>
                                         </ShowOn>
+                                        <MatchPattern>^2$</MatchPattern>
+                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
+                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ResourceAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.Properties.Resources.resources</Type>
@@ -10130,9 +10133,6 @@ FROM
                                           </ResourceAssembly>
                                           <ImageResourceName>ShowMessages</ImageResourceName>
                                         </ImagesDescription>
-                                        <MatchPattern>^2$</MatchPattern>
-                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
-                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ActionAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.SystemStatusMenuActions</Type>
@@ -10149,6 +10149,9 @@ FROM
                                           <string>DefaultContextualTab</string>
                                           <string>ContextMenu</string>
                                         </ShowOn>
+                                        <MatchPattern>^7$</MatchPattern>
+                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
+                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ResourceAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.Properties.Resources.resources</Type>
@@ -10160,9 +10163,6 @@ FROM
                                           </ResourceAssembly>
                                           <ImageResourceName>ShowMessages</ImageResourceName>
                                         </ImagesDescription>
-                                        <MatchPattern>^7$</MatchPattern>
-                                        <MatchValueToTest>##SUB:FeatureType##</MatchValueToTest>
-                                        <MatchPatternFailedActionState>Hide</MatchPatternFailedActionState>
                                         <ActionAssembly>
                                           <Assembly>AdminUI.SystemStatus.dll</Assembly>
                                           <Type>Microsoft.ConfigurationManagement.AdminConsole.SystemStatus.SystemStatusMenuActions</Type>
@@ -10353,7 +10353,7 @@ FROM
                         </PropertyList>
                       </QuerySettingsDescription>
                     </PanePageDescription>
-                    <PanePageDescription ObjectClass="SMS_CollectionEvaluationFull" PageGuid="e0664f26-54b2-49f1-9f0d-f9080602ba2f" Description="">
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="e0664f26-54b2-49f1-9f0d-f9080602ba2f" Description="">
                       <ResourceAssembly>
                         <Assembly>Adminui.ClientAgentSettings.dll</Assembly>
                         <Type>Microsoft.ConfigurationManagement.AdminConsole.ClientAgentSettings.Properties.Resources.resources</Type>
