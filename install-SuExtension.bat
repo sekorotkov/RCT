@@ -14,6 +14,10 @@ IF %ERRORLEVEL% EQU 0 (
 set _admincosole=%SMS_ADMIN_UI_PATH%\..\..\
 set _home=%~dp0
 
+:: Unblock files
+echo Unblock downlaoded content
+powershell.exe -NoProfile -Command "Get-ChildItem '%_home%' -Recurse | Unblock-File"
+
 :: This code is:
 :: (gci "$($ENV:SMS_ADMIN_UI_PATH)\..\Microsoft.ConfigurationManagement.exe").VersionInfo.FileVersion
 :: For decode base64 sting use powershell command:

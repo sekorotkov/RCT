@@ -14,6 +14,10 @@ IF %ERRORLEVEL% EQU 0 (
 set _admincosole="%SMS_ADMIN_UI_PATH%\..\..\"
 set _home=%~dp0
 
+:: Unblock files
+echo Unblock downlaoded content
+powershell.exe -NoProfile -Command "Get-ChildItem '%_home%' -Recurse | Unblock-File"
+
 :: Detect: SCCM console folder exist
 IF NOT EXIST %_admincosole% (
 	ECHO SCCM console does not exists!
