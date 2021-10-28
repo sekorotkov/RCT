@@ -2183,7 +2183,7 @@ select * from SMS_CHAlert where AlertState = 0 and FeatureGroup = 4  and IsIgnor
                         </PropertyList>
                       </QuerySettingsDescription>
                     </PanePageDescription>
-                    <PanePageDescription ObjectClass="SMS_CM_RES_COLL_xxx" PageGuid="4273f55d-3072-43bd-b4d0-61c23045aaa0" Description="Updates required for the computer">
+                    <PanePageDescription ObjectClass="SMS_CM_RES_COLL_xxx" PageGuid="d64f40a2-5e41-4f70-b5e2-1863766514bc" Description="Updates required for the computer">
                       <PageTitle>Updates: Required</PageTitle>
                       <QuerySettingsDescription QueryClass="SMS_SoftwareUpdate">
                         <Queries>
@@ -8067,7 +8067,33 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                     </ActionDescription>
                   </GoToRelatedActions>
                   <PageList>
-                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="1d03506b-b504-423a-ab94-fbabf84d401f" Description="" />
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="1d03506b-b504-423a-ab94-fbabf84d401f" Description="">
+                      <Groups>
+                        <PageGroupDescription Title="SummaryHeader" GraphMode="false">
+                          <ResourceAssembly>
+                            <Assembly>AdminUI.DetailPanel.dll</Assembly>
+                            <Type>Microsoft.ConfigurationManagement.AdminConsole.DetailPanel.Properties.Resources.resources</Type>
+                          </ResourceAssembly>
+                          <PropertyList>
+                            <PropertyDescription Name="Name" />
+                            <PropertyDescription Name="LastRefreshTime" />
+                            <PropertyDescription Name="MemberCount" />
+                            <PropertyDescription Name="LocalMemberCount" />
+                            <PropertyDescription Name="IncludeExcludeCollectionsCount" />
+                            <PropertyDescription Name="Comment" />
+                            <PropertyDescription Name="FullEvaluationRunTime" />
+                            <PropertyDescription Name="FullEvaluationMemberChanges" />
+                            <PropertyDescription Name="FullEvaluationMemberChangeTime" />
+                            <PropertyDescription Name="FullEvaluationLastRefreshTime" />
+                            <PropertyDescription Name="FullEvaluationNextRefreshTime" />
+                            <PropertyDescription Name="IncrementalEvaluationRunTime" />
+                            <PropertyDescription Name="IncrementalEvaluationMemberChanges" />
+                            <PropertyDescription Name="IncrementalEvaluationMemberChangeTime" />
+                            <PropertyDescription Name="IncrementalEvaluationLastRefreshTime" />
+                          </PropertyList>
+                        </PageGroupDescription>
+                      </Groups>
+                    </PanePageDescription>
                     <PanePageDescription ObjectClass="SMS_Collection" PageGuid="901d377d-6dbe-495f-8a4a-1941462113ae" Description="RecentDeploymentsDescription">
                       <ResourceAssembly>
                         <Assembly>AdminUI.CollectionProperty.dll</Assembly>
@@ -8514,7 +8540,7 @@ WHERE SMS_R_System.ResourceID=##SUB:ResourceID##</Query>
                         </PropertyList>
                       </QuerySettingsDescription>
                     </PanePageDescription>
-                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="0190fdc2-179e-4f46-af89-b1a073c5f444" Description="Updates required for the computer">
+                    <PanePageDescription ObjectClass="SMS_Collection" PageGuid="4759d08a-65f4-421f-9db4-e29c3d533d46" Description="Updates required for the computer">
                       <PageTitle>Updates: Required</PageTitle>
                       <QuerySettingsDescription QueryClass="SMS_SoftwareUpdate">
                         <Queries>
