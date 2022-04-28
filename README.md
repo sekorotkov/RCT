@@ -24,6 +24,10 @@
 
 ![Create SUG for Collection](screenshots/rct-04.png?raw=true "Create SUG for Collection")
 
+- In version 5.2111.1056.1004 added new RCT tool - "List SU Groups"
+
+![List SU Groups](screenshots/rct-list-su-groups.png?raw=true "List SU Groups")
+
 ... and more samples from ScreenShots folder
 
 ## How to install
