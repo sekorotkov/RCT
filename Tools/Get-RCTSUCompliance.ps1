@@ -64,7 +64,7 @@ Process {
     if ($ResourceID.Count) {
         Write-Verbose "... running batch jobs for $($ResourceID.Count) ResourceID"
         $Query = @"
-        SELECT DISTINCT
+        SELECT 
             SMS_R_System.NetbiosName
             , SMS_SoftwareUpdate.CI_ID
             , SMS_SoftwareUpdate.LocalizedDisplayName
@@ -72,6 +72,7 @@ Process {
             , SMS_SoftwareUpdate.IsContentProvisioned
             , SMS_SoftwareUpdate.IsDeployed
             , SMS_SoftwareUpdate.DateRevised
+            , SMS_CIAllCategories.LocalizedCategoryInstanceName
         FROM
             SMS_R_System            
             JOIN SMS_UpdateComplianceStatus
@@ -87,6 +88,7 @@ Process {
             JOIN SMS_CIAllCategories
                 ON SMS_SoftwareUpdate.CI_ID = SMS_CIAllCategories.CI_ID
                 AND SMS_SoftwareUpdate.CI_ID NOT IN (SELECT CI_ID FROM SMS_CIAllCategories WHERE CategoryInstance_UniqueID='UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5')
+                AND SMS_CIAllCategories.CategoryTypeName = 'Company'
         WHERE SMS_R_System.ResourceID IN ({0})
 "@
         ## UpdateClassification:3689bdc8-b205-4af4-8d4a-a63924c5e9d5 - 'Upgrades'
@@ -111,13 +113,14 @@ Process {
         $Title += ". All devices: $($ResourceID.count), need updates: $(($Updates.SMS_R_System.NetbiosName | Select-Object -Unique).Count). All updates: $(($Updates.SMS_SoftwareUpdate.CI_ID | Select-Object -Unique).Count)."
         $Title += " ""Custom severity"" excluded: $ExcludeCustomSeverity"
         $Updates | 
-        Select-Object   @{n = "Netbios Name"; e = { $_.SMS_R_System.NetbiosName } },
-        @{n = "Update Title"; e = { $_.SMS_SoftwareUpdate.LocalizedDisplayName } },
-        @{n = "Required"; e = { $_.SMS_SoftwareUpdate.NumMissing } },
-        @{n = "Downloaded"; e = { $_.SMS_SoftwareUpdate.IsContentProvisioned } },
-        @{n = "Deployed"; e = { $_.SMS_SoftwareUpdate.IsDeployed } },
-        @{n = "Released or Revised"; e = { [System.Management.ManagementDateTimeConverter]::ToDateTime($_.SMS_SoftwareUpdate.DateRevised) } } |
-        Sort-Object "Netbios Name", "Released or Revised" | Out-GridView -Wait -Title $Title
+            Select-Object   @{ n = "Netbios Name"; e = { $_.SMS_R_System.NetbiosName } },
+                            @{ n = "Update Title"; e = { $_.SMS_SoftwareUpdate.LocalizedDisplayName } },
+                            @{ n = "Required"; e = { $_.SMS_SoftwareUpdate.NumMissing } },
+                            @{ n = "Downloaded"; e = { $_.SMS_SoftwareUpdate.IsContentProvisioned } },
+                            @{ n = "Deployed"; e = { $_.SMS_SoftwareUpdate.IsDeployed } },
+                            @{ n = "Released or Revised"; e = { [System.Management.ManagementDateTimeConverter]::ToDateTime($_.SMS_SoftwareUpdate.DateRevised) } },
+                            @{ n = "Vendor"; e = { $_.SMS_CIAllCategories.LocalizedCategoryInstanceName } } |
+                Sort-Object "Netbios Name", "Released or Revised" | Out-GridView -Wait -Title $Title
     }
     else { 
         [Microsoft.VisualBasic.Interaction]::MsgBox("No device found", "OkOnly,SystemModal,Information", "Completed") | Out-Null
