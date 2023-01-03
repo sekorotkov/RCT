@@ -1,0 +1,17 @@
+<ActionDescription Class="Executable" DisplayName="Sync all enabled" MnemonicDisplayName="Sync all enabled" Description="Sync all enabled catalogs">
+	<ImagesDescription>
+		<ResourceAssembly>
+			<Assembly>AdminUI.UIResources.dll</Assembly>
+			<Type>Microsoft.ConfigurationManagement.AdminConsole.UIResources.Properties.Resources.resources</Type>
+		</ResourceAssembly>
+		<ImageResourceName>SyncNow</ImageResourceName>
+	</ImagesDescription>
+	<ShowOn>
+		<string>ContextMenu</string>
+		<string>DefaultHomeTab</string>
+	</ShowOn>
+	<Executable>
+		<FilePath>PowerShell.exe</FilePath>
+		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\Sync-RCTAllEnabled3rdParty.ps1" -SiteServer "{0}" -Namespace "{1}"</Parameters>
+	</Executable>
+</ActionDescription>
