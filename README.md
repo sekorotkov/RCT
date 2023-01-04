@@ -1,4 +1,11 @@
 # RCT (Right Click Tools) for Updates + Software Update Extension
+### What's new
+2023-01-03:
+
+- Two new RCT action:
+- ![Clean Software Update Groups](screenshots/rct-05-clean-sugsup.png?raw=true "Clean Software Update Groups")
+
+- ![Clean Software Update Groups](screenshots/rct-05-sync-all-3rdpt-catalogs.png?raw=true "Clean Software Update Groups")
 
 ## English help
 
