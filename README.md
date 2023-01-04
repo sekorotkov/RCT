@@ -2,7 +2,8 @@
 
 ### What's new
 
-2023-01-03:
+#### 2023-01-03
+
 Two new RCT action:
 - RTC: Clean Software Update Groups
 - Sync all enabled third party catalogs
