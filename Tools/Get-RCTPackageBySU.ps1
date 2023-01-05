@@ -12,7 +12,7 @@ param(
 
     , [parameter(Mandatory = $true, ParameterSetName = "BySUGCI_ID", HelpMessage = "The unique ID of the software update group.")]
     [ValidateNotNullOrEmpty()]
-    [string] $SUGCI_ID
+    [string] $SUG_CI_ID
 
     , [parameter(Mandatory = $true, ParameterSetName = "ByCI_ID", HelpMessage = "The unique ID of the Update.")]
     [ValidateNotNullOrEmpty()]
@@ -31,7 +31,7 @@ Begin {
 
     Write-Verbose "SiteServer   = $SiteServer"
     Write-Verbose "Namespace    = $Namespace"
-    Write-Verbose "SUGCI_ID     = $SUGCI_ID"
+    Write-Verbose "SUG_CI_ID     = $SUG_CI_ID"
     Write-Verbose "CI_ID        = $CI_ID"
     Write-Verbose "Title        = $Title"
 }
@@ -45,11 +45,11 @@ Process {
             SMS_SoftwareUpdate
             , SMS_CIRelation
         WHERE 
-            SMS_CIRelation.FromCIID = $SUGCI_ID
+            SMS_CIRelation.FromCIID = $SUG_CI_ID
             AND SMS_CIRelation.RelationType=1 AND SMS_SoftwareUpdate.CI_ID=SMS_CIRelation.ToCIID
 "@
         $CI_ID = (Get-WmiObject -Query $QueryMembers -ComputerName $SiteServer -Namespace $Namespace).CI_ID
-        Write-Verbose "SUGCI_ID = $($SUGCI_ID), member count = $($CI_ID.Count)"
+        Write-Verbose "SUGCI_ID = $($SUG_CI_ID), member count = $($CI_ID.Count)"
     }
     if ($CI_ID.Count) {
         Write-Verbose "... running query for $($CI_ID.Count) CI_ID"

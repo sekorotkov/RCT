@@ -12,19 +12,23 @@ SUP - Software Update Package
 [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = "By_SUG_Root")]
 
 param(
-    [parameter( Mandatory = $true, ParameterSetName = "By_SUG_CI_ID", HelpMessage = "Site server where the SMS Provider is installed.")]
+    [parameter( Mandatory = $true, ParameterSetName = "By_SUP_Root", HelpMessage = "Site server where the SMS Provider is installed.")]
     [parameter( Mandatory = $true, ParameterSetName = "By_SUG_Root", HelpMessage = "Site server where the SMS Provider is installed.")]
     [ValidateNotNullOrEmpty()]
     [string] $SiteServer
 
-    , [parameter(Mandatory = $true, ParameterSetName = "By_SUG_CI_ID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
+    , [parameter(Mandatory = $true, ParameterSetName = "By_SUP_Root", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
     [parameter(Mandatory = $true, ParameterSetName = "By_SUG_Root", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
     [ValidateNotNullOrEmpty()]
     [string] $Namespace
 
-    , [parameter(Mandatory = $true, ParameterSetName = "By_SUG_CI_ID", HelpMessage = "SMS_AuthorizationList.CI_ID - SUG ID.")]
-    [ValidateNotNullOrEmpty()]
-    [uint32] $SUG_CI_ID
+    # , [parameter(Mandatory = $true, ParameterSetName = "By_SUG_CI_ID", HelpMessage = "SMS_AuthorizationList.CI_ID - SUG ID.")]
+    # [ValidateNotNullOrEmpty()]
+    # [uint32] $SUG_CI_ID
+
+    # , [parameter(Mandatory = $true, ParameterSetName = "By_SUP_CI_ID", HelpMessage = "SMS_AuthorizationList.CI_ID - SUG ID.")]
+    # [ValidateNotNullOrEmpty()]
+    # [uint32] $SUP_CI_ID
 
     , [parameter(Mandatory = $true, HelpMessage = "Select an option to clean either ExpiredOnly, SupersededOnly or ExpiredSuperseded Software Updates from each Software Update Group")]
     [ValidateNotNullOrEmpty()]
@@ -53,6 +57,7 @@ Begin {
     Write-Verbose "SiteServer    = $SiteServer"
     Write-Verbose "Namespace     = $Namespace"
     Write-Verbose "SUG_CI_ID     = $SUG_CI_ID"
+    Write-Verbose "SUP_CI_ID     = $SUP_CI_ID"
     Write-Verbose "Option        = $Option"
     Write-Verbose "RemoveContent = $RemoveContent"
     Write-Verbose "Force         = $Force"
@@ -71,6 +76,7 @@ Begin {
         return $Locked
     }
 
+    # Filters for Querys. First for "SMS_AuthorizationList" (SUG), second for SMS_SoftwareUpdate (SU ID)
     $OptionFilter = @{
         ExpiredOnly       = @('SMS_AuthorizationList.ContainsExpiredUpdates = 1', 'SMS_SoftwareUpdate.IsExpired = 0')
         SupersededOnly    = @('SMS_AuthorizationList.ContainsSupersededUpdates = 1','SMS_SoftwareUpdate.IsSuperseded = 0')
@@ -90,6 +96,12 @@ Process {
  
     $AllSUGs = @(Get-WmiObject -Query $AuthorizationListQuery -ComputerName $SiteServer -Namespace $Namespace)
     Write-Verbose "SUG count: $($AllSUGs.Count)"
+
+    if (!$AllSUGs.Count) {
+        $Message = "Remove selected updates from all SUG{0}?" -f $(if ($RemoveContent) { " and SUP" })
+        [Microsoft.VisualBasic.Interaction]::MsgBox("No expired and/or supersided updates are found", "OkOnly,SystemModal,Information", "Completed") | Out-Null
+        return 0
+    }
 
     Write-Verbose "Get lazy propetries `"Updates`" for all SUG..."
     $AllSUGs | ForEach-Object { $_.get() }
