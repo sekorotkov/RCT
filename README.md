@@ -43,7 +43,7 @@ Two new RCT action:
 ... and more samples from ScreenShots folder
 
 ## How to install
-
+- You need to disable "Only allow console extension that are approved for the hierarchy" checkbox in Hierarchy Settings
 - Backup the Console folder "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole" or "C:\Program Files (x86)\Microsoft Endpoint Manager\AdminConsole"
 - Download ZIP-file. Press "Clone or Download" button / "Download ZIP".
 - Extract All
