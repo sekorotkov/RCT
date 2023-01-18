@@ -33,6 +33,6 @@ XCOPY "%_home%Xml-RCT\*.xml" %_admincosole% /S /I /F /Y
 
 :: Add SiteServer and Namespace to Special extension *.xml files
 ECHO Add SiteServer and Namespace to Special extension *.xml files:
-powershell.exe -NoLogo -NoProfile -NonInteractive -WindowStyle Normal -ExecutionPolicy RemoteSigned -Command ". %_home%Install-SpecialExtension.ps1"
+powershell.exe -NoLogo -NoProfile -NonInteractive -WindowStyle Normal -ExecutionPolicy RemoteSigned -Command ". ""%_home%Install-SpecialExtension.ps1"""
 
 PAUSE
