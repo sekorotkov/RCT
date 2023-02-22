@@ -1,0 +1,16 @@
+<ActionDescription Class="Executable" DisplayName="List SU Groups" MnemonicDisplayName="List SU Groups" Description="Shows the Packages for the selected update">
+	<ImagesDescription>
+		<ResourceAssembly>
+			<Assembly>AdminUI.UIResources.dll</Assembly>
+			<Type>Microsoft.ConfigurationManagement.AdminConsole.UIResources.Properties.Resources.resources</Type>
+		</ResourceAssembly>
+		<ImageResourceName>Package</ImageResourceName>
+	</ImagesDescription>
+	<ShowOn>
+		<string>ContextMenu</string>
+	</ShowOn>
+	<Executable>
+		<FilePath>PowerShell.exe</FilePath>
+		<Parameters>-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy RemoteSigned -Command ". $env:SMS_ADMIN_UI_PATH\..\..\Get-RCTPackageBySU.ps1" -SiteServer "##SUB:__SERVER##" -Namespace "##SUB:__Namespace##" -CI_ID ##SUB:CI_ID## -Title &apos;##SUB:LocalizedDisplayName##&apos;</Parameters>
+	</Executable>
+</ActionDescription>
