@@ -2,6 +2,13 @@
 
 ### What's new
 
+#### 2024-01-10
+
+New RCT action in "RTC: Clean Software Update Groups"
+- "Defender Expired and Superseded (Remove content)". Remove Expired/Superseded Defender/SCEP update from all SUG/SUG. New ps1- script: Tools\Remove-RCTUpdateFromSUGSUP.ps1
+
+![Clean Software Update Groups and Packages](screenshots/rct-05-clean-defender-sugsup.png?raw=true "Clean Software Update Groups and Packages")
+
 #### 2023-01-03
 
 Two new RCT action:
