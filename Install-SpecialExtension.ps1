@@ -33,7 +33,6 @@ if ($SiteServer -and $SiteCode) {
     foreach ($SpecialExtensionPath in $SpecialExtensionPaths) {
         ## $SpecialExtensionPath = $SpecialExtensionPaths[0]
         $XmlPath = Join-Path "$($env:SMS_ADMIN_UI_PATH)\..\..\XmlStorage\Extensions\Actions\" $SpecialExtensionPath
-        $XmlPath = 'C:\Program Files (x86)\Microsoft Endpoint Manager\AdminConsole\XmlStorage\Extensions\Actions\23e7a3fe-b0f0-4b24-813a-dc425239f9a2\Remove-RCTUpdateFromSUGSUP.ps1.xml'
         Write-Verbose "... SpecialExtensionPath = $XmlPath"
         if(Test-Path $XmlPath) {
             Write-Verbose "... Edit: $XmlPath"
