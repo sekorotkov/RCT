@@ -35,4 +35,7 @@ XCOPY "%_home%Xml-RCT\*.xml" %_admincosole% /S /I /F /Y
 ECHO Add SiteServer and Namespace to Special extension *.xml files:
 powershell.exe -NoLogo -NoProfile -NonInteractive -WindowStyle Normal -ExecutionPolicy RemoteSigned -Command ". ""%_home%Install-SpecialExtension.ps1"""
 
+echo other bugfix
+if exist "%_admincosole%Remove-RCTUpdateFromSUPSUG.ps1" del "%_admincosole%Remove-RCTUpdateFromSUPSUG.ps1"
+
 PAUSE

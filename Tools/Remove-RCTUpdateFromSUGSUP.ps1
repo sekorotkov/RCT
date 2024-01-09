@@ -18,11 +18,13 @@ logics:
 param(
     [parameter( Mandatory = $true, ParameterSetName = "By_SUG_Root", HelpMessage = "Site server where the SMS Provider is installed.")]
     [parameter( Mandatory = $true, ParameterSetName = "By_SUP_Root", HelpMessage = "Site server where the SMS Provider is installed.")]
+    [parameter( Mandatory = $true, ParameterSetName = "By_ArticleID", HelpMessage = "Site server where the SMS Provider is installed.")]
     [ValidateNotNullOrEmpty()]
     [string] $SiteServer
 
     , [parameter(Mandatory = $true, ParameterSetName = "By_SUG_Root", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
-    [parameter(Mandatory = $true, ParameterSetName = "By_SUP_Root", HelpMessage = "Namespace: root\sms\site_COD for examle.")]    
+    [parameter(Mandatory = $true, ParameterSetName = "By_SUP_Root", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
+    [parameter(Mandatory = $true, ParameterSetName = "By_ArticleID", HelpMessage = "Namespace: root\sms\site_COD for examle.")]
     [ValidateNotNullOrEmpty()]
     [string] $Namespace
 
@@ -33,6 +35,10 @@ param(
     # , [parameter(Mandatory = $true, ParameterSetName = "By_SUP_CI_ID", HelpMessage = "SMS_AuthorizationList.CI_ID - SUG ID.")]
     # [ValidateNotNullOrEmpty()]
     # [uint32] $SUP_CI_ID
+
+    , [parameter(Mandatory = $true, ParameterSetName = "By_ArticleID", HelpMessage = "SMS_AuthorizationList.CI_ID - SUG ID.")]
+    [ValidateNotNullOrEmpty()]
+    [uint32[]] $ArticleID = @(4052623, 915597, 2267602)
 
     , [parameter(Mandatory = $true, HelpMessage = "Select an option to clean either ExpiredOnly, SupersededOnly or ExpiredSuperseded Software Updates from each Software Update Group")]
     [ValidateNotNullOrEmpty()]
@@ -95,14 +101,17 @@ Process {
     FROM
         SMS_AuthorizationList
     WHERE 
-        {0}
+        ({0}) 
 "@ -f $OptionFilter[$Option][0]
+
+    if ($PSCmdlet.ParameterSetName -eq 'By_ArticleID') {
+        # Add search only for specific ArticleID
+    }
  
     $AllSUGs = @(Get-WmiObject -Query $AuthorizationListQuery -ComputerName $SiteServer -Namespace $Namespace)
     Write-Verbose "SUG count: $($AllSUGs.Count)"
 
     if (!$AllSUGs.Count) {
-        $Message = "Remove selected updates from all SUG{0}?" -f $(if ($RemoveContent) { " and SUP" })
         [Microsoft.VisualBasic.Interaction]::MsgBox("No expired and/or supersided updates are found", "OkOnly,SystemModal,Information", "Completed") | Out-Null
         return 0
     }
@@ -125,6 +134,7 @@ Process {
 
         $ClearSUGUpdates = @(Get-WmiObject -Query $SoftwareUpdateQuery -ComputerName $SiteServer -Namespace $Namespace | Select-Object -ExpandProperty CI_ID)
         Write-Verbose "ClearSUGUpdates = $ClearSUGUpdates"
+
         if ($ClearSUGUpdates.Count -lt $SUG.Updates.Count) {
             Write-Verbose "Count change exist"
             # Check SEDO state

@@ -10,8 +10,8 @@ so we need get server name and namespace from local computer and add is as conts
 #>
 
 $SpecialExtensionPaths = @(    
-    "23e7a3fe-b0f0-4b24-813a-dc425239f9a2\Remove-RCTUpdateFromSUPSUG.ps1.xml"
-    "49d3a24f-5fe5-46f1-92c9-996cb804607b\Remove-RCTUpdateFromSUPSUG.ps1.xml"
+    "23e7a3fe-b0f0-4b24-813a-dc425239f9a2\Remove-RCTUpdateFromSUGSUP.ps1.xml"
+    "49d3a24f-5fe5-46f1-92c9-996cb804607b\Remove-RCTUpdateFromSUGSUP.ps1.xml"
     "ac950be1-9f55-4c02-a9b0-0c664484fbd1\Sync-RCTAllEnabled3rdParty.ps1.xml"
 )
 
@@ -33,6 +33,7 @@ if ($SiteServer -and $SiteCode) {
     foreach ($SpecialExtensionPath in $SpecialExtensionPaths) {
         ## $SpecialExtensionPath = $SpecialExtensionPaths[0]
         $XmlPath = Join-Path "$($env:SMS_ADMIN_UI_PATH)\..\..\XmlStorage\Extensions\Actions\" $SpecialExtensionPath
+        $XmlPath = 'C:\Program Files (x86)\Microsoft Endpoint Manager\AdminConsole\XmlStorage\Extensions\Actions\23e7a3fe-b0f0-4b24-813a-dc425239f9a2\Remove-RCTUpdateFromSUGSUP.ps1.xml'
         Write-Verbose "... SpecialExtensionPath = $XmlPath"
         if(Test-Path $XmlPath) {
             Write-Verbose "... Edit: $XmlPath"

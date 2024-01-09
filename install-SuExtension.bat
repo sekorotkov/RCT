@@ -49,5 +49,9 @@ echo bugfix for 5.1910.1050.1002:
 if exist "%_admincosole%AssetManagementNode.xml" del "%_admincosole%AssetManagementNode.xml"
 if exist "%_admincosole%ConnectedConsole.xml" del "%_admincosole%ConnectedConsole.xml"
 if exist "%_admincosole%SoftwareLibraryNode.xml" del "%_admincosole%SoftwareLibraryNode.xml"
+
+echo other bugfix
+if exist "%_admincosole%Remove-RCTUpdateFromSUPSUG.ps1" del "%_admincosole%Remove-RCTUpdateFromSUPSUG.ps1"
+
 echo Complete
 PAUSE
