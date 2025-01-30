@@ -1,12 +1,12 @@
 #Requires -RunAsAdministrator
 $VerbosePreference = 'Continue'
 <#
-Special extension is extensionwhere is no have special enviroument variable
+Special extension is extension where is no have special environment variable
 Root nodes does not have:
 - ##SUB:__SERVER##
 - ##SUB:__Namespace##
 
-so we need get server name and namespace from local computer and add is as contstant
+so we need get server name and namespace from local computer and add is as constant
 #>
 
 $SpecialExtensionPaths = @(    
