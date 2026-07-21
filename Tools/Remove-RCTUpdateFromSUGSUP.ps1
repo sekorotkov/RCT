@@ -1,4 +1,4 @@
-<#
+﻿<#
 SUG - Software Update Group
 SUP - Software Update Package
 
@@ -196,8 +196,13 @@ End {
             Write-Verbose ($Package | Out-String)
             $SUPChanged += $Package.RemoveContent($GroupByPackageID.Group.ContentID, $true)
         }
-        $Text = if ($SUGChanged.Count) { "Number of modified SU Group: $($SUGChanged.Count)`nNumber of modified SU Package: $($SUPChanged.Count)`n`nPlease refresh the console." } else { "No changes made." }
-        Write-Verbose $Text
-        [Microsoft.VisualBasic.Interaction]::MsgBox($Text, "OkOnly,SystemModal,Information,DefaultButton1", "Completed") | Out-Null
     }
+
+    $Text = if ($SUGChanged.Count -or $SUPChanged.Count) {
+        "Number of modified SU Group: $($SUGChanged.Count)`nNumber of modified SU Package: $($SUPChanged.Count)`n`nPlease refresh the console."
+    } else {
+        "No changes made."
+    }
+    Write-Verbose $Text
+    [Microsoft.VisualBasic.Interaction]::MsgBox($Text, "OkOnly,SystemModal,Information,DefaultButton1", "Completed") | Out-Null
 }

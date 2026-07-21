@@ -1,4 +1,4 @@
-#Requires -RunAsAdministrator
+﻿#Requires -RunAsAdministrator
 $VerbosePreference = 'Continue'
 <#
 Special extension is extension where is no have special environment variable

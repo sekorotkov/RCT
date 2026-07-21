@@ -1,4 +1,4 @@
-<#
+﻿<#
 SUG - Software Update Group
 SUP - Software Update Package
 RMC - Right mouse click

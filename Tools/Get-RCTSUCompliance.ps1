@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [parameter(Mandatory = $true, ParameterSetName = "ByCollectionID", HelpMessage = "Site server where the SMS Provider is installed.")]
     [parameter(Mandatory = $true, ParameterSetName = "ByResourceID", HelpMessage = "Site server where the SMS Provider is installed.")]

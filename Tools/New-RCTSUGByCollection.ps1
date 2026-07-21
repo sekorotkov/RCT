@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [parameter(Mandatory = $true, HelpMessage = "Site server where the SMS Provider is installed.")]
     [ValidateNotNullOrEmpty()]
